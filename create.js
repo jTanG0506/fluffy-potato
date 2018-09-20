@@ -1,5 +1,6 @@
 import uuid from "uuid";
 import AWS from "aws-sdk";
+import { failure, success } from "./libs/response-lib";
 
 AWS.config.update({ region: "eu-west-2" });
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
@@ -26,20 +27,10 @@ export function main(event, context, callback) {
     };
 
     if (error) {
-      const response = {
-        statusCode: 500,
-        headers: headers,
-        body: JSON.stringify({ status: false })
-      };
-      callback(null, response);
+      callback(null, failure({ status: false }));
       return;
     }
 
-    const response = {
-      statusCode: 200,
-      headers: headers,
-      body: JSON.stringify(params.Item)
-    };
-    callback(null, response);
+    callback(null, success(params.Item));
   });
 }
