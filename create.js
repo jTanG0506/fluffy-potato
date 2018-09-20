@@ -1,11 +1,8 @@
 import uuid from "uuid";
-import AWS from "aws-sdk";
+import * as dynamoDbLib from "./libs/dynamodb-lib";
 import { failure, success } from "./libs/response-lib";
 
-AWS.config.update({ region: "eu-west-2" });
-const dynamoDb = new AWS.DynamoDB.DocumentClient();
-
-export function main(event, context, callback) {
+export async function main(event, context, callback) {
   const data = JSON.parse(event.body);
 
   const params = {
@@ -19,18 +16,11 @@ export function main(event, context, callback) {
     }
   };
 
-  dynamoDb.put(params, (error, data) => {
-    // Set response headers to enable CORS
-    const headers = {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Credentials": true
-    };
-
-    if (error) {
-      callback(null, failure({ status: false }));
-      return;
-    }
-
+  try {
+    await dynamoDbLib.call("put", params);
     callback(null, success(params.Item));
-  });
+  } catch (e) {
+    console.log(e);
+    callback(null, failure({ status: false }));
+  }
 }
