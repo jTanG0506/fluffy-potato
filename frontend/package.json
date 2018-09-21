@@ -4,6 +4,7 @@
   "description": "📝 Note taking app made using Serverless and React on AWS",
   "private": true,
   "dependencies": {
+    "bulma": "^0.7.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-scripts": "1.1.5"
