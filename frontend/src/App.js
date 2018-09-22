@@ -34,7 +34,8 @@ class App extends Component {
     this.setState({ isAuthenticated: authenticated });
   }
 
-  handleLogout = event => {
+  handleLogout = async event => {
+    await Auth.signOut();
     this.userHasAuthenticated(false);
   }
 
