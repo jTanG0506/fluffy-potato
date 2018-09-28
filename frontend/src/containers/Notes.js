@@ -56,7 +56,7 @@ export default class Notes extends Component {
   }
 
   formatFilename(str) {
-    return str.replace("/^w+-/", "");
+    return str.replace(/^\w+-/, "");
   }
 
   handleChange = event => {
