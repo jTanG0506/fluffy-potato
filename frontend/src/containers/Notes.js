@@ -51,6 +51,10 @@ export default class Notes extends Component {
     });
   }
 
+  deleteNote(note) {
+    return API.del("fluffy-potato", `/notes/${this.props.match.params.id}`);
+  }
+
   validateForm() {
     return this.state.content.length > 0;
   }
@@ -110,6 +114,18 @@ export default class Notes extends Component {
     }
 
     this.setState({ isDeleting: true });
+
+    try {
+      if (this.state.note.attachment) {
+        await s3Delete(this.state.note.attachment);
+      }
+
+      await this.deleteNote();
+      this.props.history.push("/");
+    } catch (e) {
+      alert(e);
+      this.setState({ isLoading: false });
+    }
   }
 
   render() {
