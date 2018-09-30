@@ -51,7 +51,7 @@ export default class Home extends Component {
       >
         <h4>
           <b>{"\uFF0B"}</b> Create a new note
-              </h4>
+        </h4>
       </ListGroupItem>
     );
   }
