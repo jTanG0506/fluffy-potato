@@ -1,5 +1,5 @@
 # fluffy-potato
-📝 Note taking app made using Serverless, Bulma and React on AWS
+📝 Note taking app made using Serverless, Bootstrap and React on AWS
 
 ### Setup
 ##### Add a configuration file for the backend - `backend/src/config.js`
